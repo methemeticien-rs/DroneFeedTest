@@ -62,4 +62,3 @@ flutter_mobile_app/android/**/.cxx/
 # Flutter web build
 flutter_mobile_app/web/.dart_tool/
 flutter_mobile_app/web/build/
-nextjs-dashboard
