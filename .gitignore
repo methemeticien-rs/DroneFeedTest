@@ -1,0 +1,65 @@
+# Node / Next.js
+node_modules/
+.next/
+out/
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# macOS
+.DS_Store
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Go2RTC / binaries / test assets
+go2rtc
+*.log
+*.db
+
+# Generated test videos
+test-videos/
+
+# Flutter / Dart (scoped to flutter_mobile_app)
+flutter_mobile_app/.dart_tool/
+flutter_mobile_app/.packages
+flutter_mobile_app/.flutter-plugins
+flutter_mobile_app/.flutter-plugins-dependencies
+flutter_mobile_app/.metadata
+flutter_mobile_app/build/
+
+# Flutter iOS
+flutter_mobile_app/ios/Pods/
+flutter_mobile_app/ios/.symlinks/
+flutter_mobile_app/ios/Flutter/Flutter.framework
+flutter_mobile_app/ios/Flutter/Flutter.podspec
+flutter_mobile_app/ios/Flutter/App.framework
+flutter_mobile_app/ios/Flutter/ephemeral/
+
+# Flutter macOS
+flutter_mobile_app/macos/Flutter/ephemeral/
+
+# Flutter Android
+flutter_mobile_app/android/.gradle/
+flutter_mobile_app/android/**/local.properties
+flutter_mobile_app/android/**/build/
+flutter_mobile_app/android/**/.cxx/
+
+# Flutter web build
+flutter_mobile_app/web/.dart_tool/
+flutter_mobile_app/web/build/
+nextjs-dashboard

@@ -1,0 +1,91 @@
+# go2rtc Configuration for Drone Streaming Platform
+# This configuration enables CORS for cross-origin requests from Next.js dashboard
+
+# Stream sources configuration
+streams:
+  # Demo WebRTC feeds (no RTSP required):
+  
+  # Option 1: FFmpeg test pattern (generated on-the-fly, no file needed)
+  demo: ffmpeg:testsrc2=size=1280x720:rate=30#video#codec=h264
+  
+  # Option 2: FFmpeg test pattern with audio
+  demo2: ffmpeg:testsrc2=size=1280x720:rate=30#video#codec=h264#audio#sine=frequency=1000
+  
+  # Option 3: Test video file (run create-test-video.sh first to generate)
+  # demo3: file://test-videos/test-pattern.mp4
+  
+  # Option 4: Public HTTP test streams (more reliable than RTSP)
+  demo4: https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
+  
+  # Option 5: YouTube-like test stream (if you have a test file)
+  # demo5: file:///path/to/your/test-video.mp4
+  
+  # Old RTSP options (commented out - use demo streams above instead)
+  # test: rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mp4
+  # test2: rtsp://rtsp.stream/pattern
+  # test3: rtsp://localhost:8554/test
+  
+  # HM30 drone stream via RTSP (when available)
+  # hm30: rtsp://username:password@your-hm30-ip:port/stream
+
+# API configuration
+api:
+  # Enable CORS for cross-origin requests
+  # This allows the Next.js app (running on a different domain) to access the API
+  origin: "*"
+  
+  # Optional: Specify exact origins instead of wildcard for better security
+  # origin:
+  #   - https://your-nextjs-domain.com
+  #   - https://your-nextjs-domain.vercel.app
+  #   - http://localhost:3000  # For local development
+
+# WebSocket configuration for WebRTC
+webrtc:
+  candidates:
+    - stun:stun.l.google.com:19302
+    # Add your own STUN/TURN servers if needed for NAT traversal
+    # - turn:your-turn-server.com:3478?username=user&password=pass
+
+# HTTP server configuration
+listen: ":1984"
+
+# Logging
+log:
+  level: info
+
+# HLS configuration for Flutter app
+hls:
+  # Enable HLS streaming
+  enabled: true
+  # Segment duration in seconds (lower = lower latency but more overhead)
+  segment_duration: 2
+  # Playlist size (number of segments to keep)
+  playlist_size: 3
+
+# CORS headers configuration
+# Additional CORS headers can be set via reverse proxy (Cloudflare Tunnel)
+# The 'origin: "*"' setting above handles basic CORS, but for production,
+# you may want to configure Cloudflare Tunnel to add specific headers:
+#
+# In your Cloudflare Tunnel config (cloudflared config.yml):
+# ingress:
+#   - hostname: your-tunnel-url.com
+#     service: http://localhost:1984
+#     originRequest:
+#       httpHostHeader: your-tunnel-url.com
+#       noHappyEyeballs: false
+#       keepAliveConnections: 10
+#       keepAliveTimeout: 90s
+#       httpHeaders:
+#         Access-Control-Allow-Origin: "*"
+#         Access-Control-Allow-Methods: "GET, POST, OPTIONS"
+#         Access-Control-Allow-Headers: "Content-Type, Authorization"
+#         Access-Control-Allow-Credentials: "true"
+
+# Security recommendations:
+# 1. For production, replace origin: "*" with specific allowed origins
+# 2. Use authentication if exposing to the internet
+# 3. Consider rate limiting for API endpoints
+# 4. Use HTTPS only (handled by Cloudflare Tunnel)
+
